@@ -1,0 +1,17 @@
+===== target_validation =====
+
+accuracy: 0.9851851851851852
+balanced_accuracy: 0.9426157366660799
+f1_macro: 0.9515151515151514
+f1_weighted: 0.9850355405910961
+precision_macro: 0.9608687683284457
+recall_macro: 0.9426157366660799
+classification_report:
+              precision    recall  f1-score   support
+
+       FEMME       0.99      0.99      0.99       494
+       HOMME       0.93      0.89      0.91        46
+
+    accuracy                           0.99       540
+   macro avg       0.96      0.94      0.95       540
+weighted avg       0.98      0.99      0.99       540

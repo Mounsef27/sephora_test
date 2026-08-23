@@ -4,6 +4,8 @@ from typing import Dict
 
 import matplotlib.pyplot as plt
 import numpy as np
+from pandas import DataFrame
+from sklearn.model_selection import train_test_split
 
 
 def create_artifact_directory(
@@ -236,3 +238,31 @@ def save_confusion_matrix_image(
     )
 
     plt.close(fig)
+
+
+def assign_train_validation_split(
+    data: DataFrame,
+    test_size: float = 0.2,
+    random_state: int = 42,
+) -> DataFrame:
+    data = data.copy()
+
+    stratify_column = (
+        data["nature_code"].astype(str) + "_" + data["target_code"].astype(str)
+    )
+
+    train_indices, validation_indices = train_test_split(
+        data.index,
+        test_size=test_size,
+        random_state=random_state,
+        stratify=stratify_column,
+    )
+
+    data["sample"] = "train"
+
+    data.loc[
+        validation_indices,
+        "sample",
+    ] = "validation"
+
+    return data
