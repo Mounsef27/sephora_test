@@ -32,7 +32,9 @@ def setup_logger(name: str, log_path: str = ROOT_DIR_LOGS, level: int = INFO):
     logger = getLogger(name)
 
     if not logger.handlers:
-        formatter = Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        formatter = Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
 
         try:
             makedirs(log_path, exist_ok=True)

@@ -1,0 +1,17 @@
+===== train_target =====
+
+accuracy: 0.9076635514018692
+balanced_accuracy: 0.5090774328566445
+f1_macro: 0.4989075277820122
+f1_weighted: 0.8719650741734793
+precision_macro: 0.5818087514145606
+recall_macro: 0.5090774328566445
+classification_report:
+              precision    recall  f1-score   support
+
+       FEMME       0.91      0.99      0.95      2440
+       HOMME       0.25      0.03      0.05       235
+
+    accuracy                           0.91      2675
+   macro avg       0.58      0.51      0.50      2675
+weighted avg       0.86      0.91      0.87      2675

@@ -1,0 +1,25 @@
+===== train_nature =====
+
+accuracy: 0.4627639866617266
+balanced_accuracy: 0.4613008129355266
+f1_macro: 0.4554848620800917
+f1_weighted: 0.45662593166671683
+precision_macro: 0.6119875632307813
+recall_macro: 0.4613008129355266
+classification_report:
+              precision    recall  f1-score   support
+
+     COFFRET       0.24      0.93      0.38       268
+   CREM JOUR       0.15      0.12      0.13       276
+   EAUPARFUM       0.01      0.01      0.01       268
+     EAUTOIL       0.33      0.00      0.01       266
+    MASCARAS       0.85      0.94      0.90       278
+   NETTOYANT       0.91      0.29      0.44       272
+   PALETYEUX       0.73      0.92      0.81       272
+         RAL       0.95      0.57      0.71       265
+       SERUM       0.97      0.41      0.58       274
+  SHAMPOINGS       0.98      0.41      0.58       260
+
+    accuracy                           0.46      2699
+   macro avg       0.61      0.46      0.46      2699
+weighted avg       0.61      0.46      0.46      2699
