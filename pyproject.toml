@@ -54,5 +54,6 @@ dev = [
     "pytest-cov>=7.1.0",
     "ruff>=0.16.4",
     "scikit-learn>=1.9.0",
+    "sphinx>=9.1.0",
     "xgboost>=3.4.1",
 ]

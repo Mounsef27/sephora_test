@@ -1,0 +1,99 @@
+2026-10-12 00:02:42,650 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,651 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,652 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,653 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,654 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,656 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,657 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,657 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,658 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,658 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,660 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,662 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,663 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,663 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,663 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,663 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,664 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,666 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,666 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,667 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,667 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,667 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,668 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,670 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,671 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,671 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,671 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,671 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,672 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,673 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,674 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,674 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,674 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,675 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,676 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,677 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,678 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,678 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,678 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,678 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,679 - .apply_transformation.label_construction - INFO - nature_code construction completed: 0 labels predicted, 1 rows unmatched.
+2026-10-12 00:02:42,680 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,681 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,681 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,681 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,681 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,682 - .apply_transformation.label_construction - INFO - nature_code construction completed: 0 labels predicted, 1 rows unmatched.
+2026-10-12 00:02:42,683 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,684 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,684 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,685 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,685 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,686 - .apply_transformation.label_construction - INFO - nature_code construction completed: 0 labels predicted, 1 rows unmatched.
+2026-10-12 00:02:42,687 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,687 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,687 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,688 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,688 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,689 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,690 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'target_code_predicted'.
+2026-10-12 00:02:42,690 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,691 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,691 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'target_code_predicted'.
+2026-10-12 00:02:42,691 - .apply_transformation.label_construction - INFO - Starting target_code construction for 1 rows.
+2026-10-12 00:02:42,692 - .apply_transformation.label_construction - INFO - target_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,693 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,694 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 2 rows.
+2026-10-12 00:02:42,694 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,694 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,694 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 2 rows.
+2026-10-12 00:02:42,695 - .apply_transformation.label_construction - INFO - nature_code construction completed: 2 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,699 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,699 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,699 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription', 'details'].
+2026-10-12 00:02:42,699 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,700 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,701 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,702 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,703 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,703 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,703 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,703 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,704 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,706 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,706 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,706 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName', 'cleanDescription'].
+2026-10-12 00:02:42,706 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,706 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,708 - .apply_transformation.label_construction - INFO - nature_code construction completed: 1 labels predicted, 0 rows unmatched.
+2026-10-12 00:02:42,709 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,709 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,709 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName'].
+2026-10-12 00:02:42,709 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'nature_code_predicted'.
+2026-10-12 00:02:42,709 - .apply_transformation.label_construction - INFO - Starting nature_code construction for 1 rows.
+2026-10-12 00:02:42,710 - .apply_transformation.label_construction - INFO - nature_code construction completed: 0 labels predicted, 1 rows unmatched.
+2026-10-12 00:02:42,712 - .apply_transformation.label_construction - INFO - LabelConstructor initialized for output column 'invalid_column'.
+2026-10-12 00:02:42,712 - .apply_transformation.label_construction - INFO - Fitting LabelConstructor on 1 rows.
+2026-10-12 00:02:42,712 - .apply_transformation.label_construction - INFO - Columns used for label construction: ['cleanName'].
+2026-10-12 00:02:42,712 - .apply_transformation.label_construction - INFO - Applying sklearn transform for output column 'invalid_column'.
