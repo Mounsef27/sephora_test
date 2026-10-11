@@ -7,6 +7,7 @@ from sephora_test.apply_transformation.tfidf_transformer import (
 from sephora_test.models.linear_svc_model import LinearSVCModel
 from sephora_test.run_experiments.build_ml_pipeline import build_ml_pipeline
 
+
 class TestBuildMLPipeline:
     def test_pipeline_structure(self):
         pipeline = build_ml_pipeline()
