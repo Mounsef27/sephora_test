@@ -8,7 +8,9 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 
 from sephora_test.apply_transformation.clean_text import clean_text
-from sephora_test.apply_transformation.label_construction import LabelConstructor
+from sephora_test.apply_transformation.label_construction import (
+    LabelConstructor,
+)
 from sephora_test.config.labels_map import (
     mapping_nature_code,
     mapping_target_code,
@@ -35,13 +37,9 @@ config: Dict = {
         "training_data": (
             "/home/ubuntu/Desktop/sephora_test/data/training_set.csv"
         ),
-        "test_data": (
-            "/home/ubuntu/Desktop/sephora_test/data/testing_set.csv"
-        ),
+        "test_data": ("/home/ubuntu/Desktop/sephora_test/data/testing_set.csv"),
     },
-    "artifacts_path": (
-        "/home/ubuntu/Desktop/sephora_test/src/artifacts"
-    ),
+    "artifacts_path": ("/home/ubuntu/Desktop/sephora_test/src/artifacts"),
 }
 
 
@@ -63,17 +61,9 @@ def preprocess_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
     df = df.copy()
 
-    df["cleanName"] = (
-        df["productName"]
-        .fillna("")
-        .apply(clean_text)
-    )
+    df["cleanName"] = df["productName"].fillna("").apply(clean_text)
 
-    df["cleanDescription"] = (
-        df["longDescription"]
-        .fillna("")
-        .apply(clean_text)
-    )
+    df["cleanDescription"] = df["longDescription"].fillna("").apply(clean_text)
 
     logger.info("Text preprocessing completed.")
 
@@ -156,9 +146,7 @@ def run_experiments(
 
     logger.info("Loading training dataset.")
 
-    train_df = pd.read_csv(
-        experiment_config["data_paths"]["training_data"]
-    )
+    train_df = pd.read_csv(experiment_config["data_paths"]["training_data"])
 
     logger.info(
         "Training dataset loaded with shape %s.",
@@ -167,9 +155,7 @@ def run_experiments(
 
     logger.info("Loading testing dataset.")
 
-    test_df = pd.read_csv(
-        experiment_config["data_paths"]["test_data"]
-    )
+    test_df = pd.read_csv(experiment_config["data_paths"]["test_data"])
 
     logger.info(
         "Testing dataset loaded with shape %s.",
@@ -211,12 +197,8 @@ def run_experiments(
 
     nature_metrics = calculate_all_metrics(
         dataset_name="train_nature",
-        y_true=nature_eval_df[
-            "nature_code"
-        ].to_numpy(),
-        y_pred=nature_eval_df[
-            "nature_code_predicted"
-        ].to_numpy(),
+        y_true=nature_eval_df["nature_code"].to_numpy(),
+        y_pred=nature_eval_df["nature_code_predicted"].to_numpy(),
     )
 
     logger.info(
@@ -260,12 +242,8 @@ def run_experiments(
 
     target_metrics = calculate_all_metrics(
         dataset_name="train_target",
-        y_true=target_eval_df[
-            "target_code"
-        ].to_numpy(),
-        y_pred=target_eval_df[
-            "target_code_predicted"
-        ].to_numpy(),
+        y_true=target_eval_df["target_code"].to_numpy(),
+        y_pred=target_eval_df["target_code_predicted"].to_numpy(),
     )
 
     logger.info(
@@ -323,10 +301,7 @@ def run_experiments(
 
     save_results_pickle(
         results=results,
-        output_path=(
-            artifact_directory
-            / "results.pkl"
-        ),
+        output_path=(artifact_directory / "results.pkl"),
     )
 
     logger.info("Saving test predictions CSV.")
@@ -342,71 +317,39 @@ def run_experiments(
 
     save_train_metrics_txt(
         metrics=results["nature_metrics"],
-        output_path=(
-            artifact_directory
-            / "nature_metrics.txt"
-        ),
+        output_path=(artifact_directory / "nature_metrics.txt"),
     )
 
     logger.info("Saving target training metrics.")
 
     save_train_metrics_txt(
         metrics=results["target_metrics"],
-        output_path=(
-            artifact_directory
-            / "target_metrics.txt"
-        ),
+        output_path=(artifact_directory / "target_metrics.txt"),
     )
 
-    nature_labels = sorted(
-        nature_eval_df[
-            "nature_code"
-        ]
-        .dropna()
-        .unique()
-    )
+    nature_labels = sorted(nature_eval_df["nature_code"].dropna().unique())
 
-    target_labels = sorted(
-        target_eval_df[
-            "target_code"
-        ]
-        .dropna()
-        .unique()
-    )
+    target_labels = sorted(target_eval_df["target_code"].dropna().unique())
 
-    logger.info(
-        "Saving nature confusion matrix image."
-    )
+    logger.info("Saving nature confusion matrix image.")
 
     save_confusion_matrix_image(
         confusion_matrix=(
-            results[
-                "nature_metrics"
-            ]["train_nature"]["confusion_matrix"]
+            results["nature_metrics"]["train_nature"]["confusion_matrix"]
         ),
         labels=list(nature_labels),
-        output_path=(
-            artifact_directory
-            / "nature_confusion_matrix.png"
-        ),
+        output_path=(artifact_directory / "nature_confusion_matrix.png"),
         title="Nature Code - Confusion Matrix",
     )
 
-    logger.info(
-        "Saving target confusion matrix image."
-    )
+    logger.info("Saving target confusion matrix image.")
 
     save_confusion_matrix_image(
         confusion_matrix=(
-            results[
-                "target_metrics"
-            ]["train_target"]["confusion_matrix"]
+            results["target_metrics"]["train_target"]["confusion_matrix"]
         ),
         labels=list(target_labels),
-        output_path=(
-            artifact_directory
-            / "target_confusion_matrix.png"
-        ),
+        output_path=(artifact_directory / "target_confusion_matrix.png"),
         title="Target Code - Confusion Matrix",
     )
 
