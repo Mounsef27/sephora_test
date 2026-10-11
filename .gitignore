@@ -8,4 +8,4 @@ wheels/
 
 # Virtual environments
 .venv
-_static/_notebooks/logs/
+_static/_notebooks

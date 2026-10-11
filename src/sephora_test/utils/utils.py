@@ -1,4 +1,4 @@
-import pickle
+import pickle  # nosec B403
 from pathlib import Path
 from typing import Dict
 
