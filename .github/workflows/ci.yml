@@ -26,7 +26,11 @@ jobs:
           uv sync --locked
 
       - name: Run pre-commit
-        run: uv run pre-commit run --all-files
+        run: |
+            uv run pre-commit run --all-files
+            echo "Pre-commit checks completed successfully."
 
       - name: Run tests
-        run: uv run pytest --maxfail=1 --disable-warnings -q
+        run: |
+            uv run pytest --maxfail=1 --disable-warnings -q
+            echo "Tests completed successfully."
