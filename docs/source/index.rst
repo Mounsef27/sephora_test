@@ -28,7 +28,7 @@ Depuis la racine du dépôt :
    uv run python -m nltk.downloader punkt punkt_tab stopwords
 
 Entraîner un premier modèle
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Cet exemple utilise des textes fictifs déjà nettoyés pour présenter
 l'utilisation du pipeline. Il ne constitue pas une évaluation du modèle.
@@ -62,7 +62,7 @@ l'utilisation du pipeline. Il ne constitue pas une évaluation du modèle.
    pipeline.fit(products, labels)
 
 Prédire la catégorie d'un produit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -82,7 +82,7 @@ Le :doc:`guide` explique comment préparer ces colonnes à partir
 des textes bruts.
 
 Découvrir le package
--------------------
+--------------------
 
 .. toctree::
    :maxdepth: 2

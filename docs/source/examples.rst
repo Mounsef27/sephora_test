@@ -1,5 +1,5 @@
 Exemple complet : entraînement des deux cibles
-=============================================
+==============================================
 
 Cet exemple charge les CSV, prépare les textes, sépare les données,
 entraîne les deux modèles et sauvegarde les résultats.

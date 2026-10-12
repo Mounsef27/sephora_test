@@ -17,7 +17,7 @@ from sephora_test.config.labels_map import (
 )
 from sephora_test.logger import setup_logger
 from sephora_test.model_eval.calculate_metrics import calculate_all_metrics
-from sephora_test.utils import (
+from sephora_test.utils.utils import (
     create_artifact_directory,
     save_confusion_matrix_image,
     save_results_pickle,

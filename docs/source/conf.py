@@ -42,14 +42,8 @@ html_title = "sephora_test — Documentation"
 
 
 def skip_metadata_methods(app, what, name, obj, skip, options):
-    """Écarter les méthodes de metadata routing générées par sklearn."""
-    if name in {
-        "set_fit_request",
-        "set_score_request",
-        "set_transform_request",
-        "set_partial_fit_request",
-        "set_inverse_transform_request",
-    }:
+    """Exclure les méthodes générées de configuration des métadonnées."""
+    if name.startswith("set_") and name.endswith("_request"):
         return True
     return None
 

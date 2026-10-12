@@ -66,7 +66,7 @@ Elle ne réalise pas de lemmatisation.
    son traitement.
 
 Ressources NLTK
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 Le module de nettoyage utilise les mots vides français de NLTK.
 Il tente de télécharger les ressources manquantes à son importation.
@@ -78,7 +78,7 @@ Pour préparer l'environnement :
    uv run python -m nltk.downloader punkt punkt_tab stopwords
 
 Séparation entraînement et validation
-------------------------------------
+-------------------------------------
 
 ``assign_train_validation_split`` ajoute une colonne ``sample`` à
 une copie du DataFrame.
@@ -109,7 +109,7 @@ Le vocabulaire TF-IDF doit être appris uniquement sur l'entraînement.
 La validation et le test utilisent ensuite le pipeline déjà entraîné.
 
 Représentation TF-IDF
---------------------
+---------------------
 
 ``TfidfTransformer`` concatène les colonnes configurées dans leur ordre.
 Les valeurs manquantes sont remplacées par des chaînes vides.
@@ -159,7 +159,7 @@ Le wrapper propose ``fit`` et ``predict``.
 Il ne fournit pas de méthode de prédiction des probabilités.
 
 Baseline par mots-clés
----------------------
+----------------------
 
 ``LabelConstructor`` cherche les mots-clés dans la première colonne
 configurée, puis dans les autres colonnes combinées.
@@ -198,7 +198,7 @@ Examinez les métriques par classe, notamment lorsque les classes
 sont déséquilibrées.
 
 Construire la documentation
---------------------------
+---------------------------
 
 .. code-block:: bash
 
