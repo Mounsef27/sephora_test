@@ -1,28 +1,15 @@
-"""Configuration for the Sphinx documentation builder."""
+"""Configuration Sphinx de sephora_test."""
 
 import sys
 from pathlib import Path
 
-# -- Package import path -----------------------------------------------------
-
-config_directory = Path(__file__).resolve().parent
-
-for directory in (config_directory, *config_directory.parents):
-    source_directory = directory / "src"
-    if (source_directory / "sephora_test").is_dir():
-        sys.path.insert(0, str(source_directory))
-        break
-else:
-    raise RuntimeError("Cannot find src/sephora_test.")
-
-# -- Project information -----------------------------------------------------
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
 project = "sephora_test"
-copyright = "2026, debache"
-author = "debache"
-release = "0.1"
-
-# -- General configuration ---------------------------------------------------
+author = "Mounsef Debache"
+copyright = "2026, Mounsef Debache"
+release = "0.1.0"
+language = "fr"
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -30,14 +17,13 @@ extensions = [
     "sphinx.ext.viewcode",
 ]
 
-templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
+    "api/modules.rst",
+    "api/sephora_test*.rst",
 ]
-
-# -- API documentation -------------------------------------------------------
 
 autodoc_default_options = {
     "members": True,
@@ -49,9 +35,24 @@ autodoc_member_order = "bysource"
 autoclass_content = "both"
 
 napoleon_google_docstring = True
-napoleon_numpy_docstring = False
-
-# -- HTML output -------------------------------------------------------------
+napoleon_numpy_docstring = True
 
 html_theme = "furo"
-html_static_path = ["_static"]
+html_title = "sephora_test — Documentation"
+
+
+def skip_metadata_methods(app, what, name, obj, skip, options):
+    """Écarter les méthodes de metadata routing générées par sklearn."""
+    if name in {
+        "set_fit_request",
+        "set_score_request",
+        "set_transform_request",
+        "set_partial_fit_request",
+        "set_inverse_transform_request",
+    }:
+        return True
+    return None
+
+
+def setup(app):
+    app.connect("autodoc-skip-member", skip_metadata_methods)
