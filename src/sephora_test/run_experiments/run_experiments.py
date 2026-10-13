@@ -31,7 +31,7 @@ logger = setup_logger(__name__)
 config: Dict = {
     "first_name": "Mounsef",
     "last_name": "Debache",
-    "method_name": "keyword_label_constructor",
+    "method_name": "keyword_label_constructor",  # or machine learning model
     "run_datetime": datetime.now().strftime("%Y-%m-%d_%H-%M-%S"),
     "data_paths": {
         "training_data": (
