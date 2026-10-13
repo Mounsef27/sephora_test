@@ -75950,3 +75950,9 @@ C...
 2026-10-12 00:36:08,421 - .apply_transformation.clean_text - INFO - Loaded 157 French stopwords and 40 punctuation characters.
 2026-10-12 00:45:28,074 - .apply_transformation.clean_text - INFO - NLTK resources are already downloaded.
 2026-10-12 00:45:28,075 - .apply_transformation.clean_text - INFO - Loaded 157 French stopwords and 40 punctuation characters.
+2026-10-12 20:26:14,436 - .apply_transformation.clean_text - INFO - NLTK resources are already downloaded.
+2026-10-12 20:26:14,437 - .apply_transformation.clean_text - INFO - Loaded 157 French stopwords and 40 punctuation characters.
+2026-10-12 20:27:24,663 - .apply_transformation.clean_text - INFO - NLTK resources are already downloaded.
+2026-10-12 20:27:24,664 - .apply_transformation.clean_text - INFO - Loaded 157 French stopwords and 40 punctuation characters.
+2026-10-12 20:28:11,462 - .apply_transformation.clean_text - INFO - NLTK resources are already downloaded.
+2026-10-12 20:28:11,464 - .apply_transformation.clean_text - INFO - Loaded 157 French stopwords and 40 punctuation characters.
