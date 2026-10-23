@@ -10,6 +10,10 @@
   <img alt="uv" src="https://img.shields.io/badge/package%20manager-uv-6f42c1">
   <img alt="Ruff" src="https://img.shields.io/badge/code%20quality-Ruff-d7ff64">
   <img alt="mypy" src="https://img.shields.io/badge/type%20checking-mypy-2a6db2">
+  <img alt="pytest" src="https://img.shields.io/badge/tests-pytest-green">
+  <img alt="Bandit" src="https://img.shields.io/badge/security-Bandit-yellow">
+  <img alt="Sphinx" src="https://img.shields.io/badge/docs-Sphinx-blue">
+  <img alt="GitHub Actions" src="https://img.shields.io/badge/CI-GitHub%20Actions-2088FF">
 </p>
 
 ---
@@ -23,7 +27,7 @@ The objective is to predict two product attributes from textual information:
 - **`nature_code`** — multiclass product-category classification.
 - **`target_code`** — binary target classification (`FEMME` / `HOMME`).
 
-The available textual features are mainly:
+The main textual features are:
 
 - `productName`
 - `longDescription`
@@ -33,7 +37,26 @@ Two approaches are implemented:
 1. **Rule-based keyword baseline**
 2. **TF-IDF + LinearSVC machine-learning pipeline**
 
-The project is designed as a reusable Python package with preprocessing, sklearn-compatible transformers and estimators, evaluation utilities, logging, experiment tracking, artifact generation, notebooks, and code-quality checks.
+The project is designed as a reusable Python package and includes:
+
+- text preprocessing,
+- sklearn-compatible transformers and estimators,
+- experiment orchestration,
+- model evaluation,
+- artifact generation,
+- model serialization,
+- automated tests,
+- code coverage,
+- linting and formatting,
+- static type checking,
+- security analysis,
+- pre-commit hooks,
+- GitHub Actions CI,
+- Sphinx documentation,
+- notebooks,
+- reproducible dependency management with `uv`.
+
+The goal is not only to train an accurate model, but also to structure the solution as a maintainable and reproducible Machine Learning project.
 
 ---
 
@@ -63,7 +86,12 @@ The TF-IDF + LinearSVC approach is evaluated on a **stratified 80/20 train-valid
 | Macro Precision | **0.9609** |
 | Macro Recall | **0.9426** |
 
-Despite the strong class imbalance in `target_code`, the model reaches a **0.89 recall for the HOMME class** and a **0.91 F1-score** on validation.
+Despite the strong class imbalance in `target_code`, the model reaches:
+
+```text
+HOMME Recall = 0.89
+HOMME F1     = 0.91
+```
 
 ---
 
@@ -113,13 +141,13 @@ The two targets are modeled independently:
 - `nature_code`: standard `LinearSVC`
 - `target_code`: `LinearSVC(class_weight="balanced")`
 
-This allows the binary classifier to better handle the strong `FEMME` / `HOMME` imbalance.
+Using balanced class weights helps the binary classifier better handle the `FEMME` / `HOMME` class imbalance.
 
 ---
 
 ## Validation strategy
 
-Only the provided **training dataset** is split.
+Only the provided training dataset is split.
 
 ```text
 training_set.csv
@@ -141,7 +169,7 @@ TF-IDF fit
 LinearSVC fit
 ```
 
-The split is stratified using the combination of:
+The split is stratified using the combination:
 
 ```text
 nature_code + target_code
@@ -155,7 +183,7 @@ The provided `testing_set.csv` is used **only for final inference** and never fo
 
 ## Text preprocessing
 
-The preprocessing pipeline prepares both text columns:
+The preprocessing pipeline transforms:
 
 ```text
 productName      → cleanName
@@ -173,6 +201,27 @@ The cleaning utilities handle:
 - whitespace normalization.
 
 The cleaned columns are then jointly transformed by TF-IDF.
+
+---
+
+## Rule-based baseline
+
+A first baseline is implemented using configurable keyword mappings for:
+
+- `nature_code`
+- `target_code`
+
+The baseline follows a deterministic strategy using cleaned product names and descriptions.
+
+It provides:
+
+- an interpretable reference solution,
+- a simple benchmark,
+- a way to inspect discriminative vocabulary,
+- deterministic predictions,
+- a simple mechanism for incorporating business knowledge.
+
+The rule-based and ML approaches are kept separate so both remain independently reproducible.
 
 ---
 
@@ -197,6 +246,8 @@ cleanName + cleanDescription
 
 and learns the TF-IDF representation on the training subset only.
 
+This helps prevent data leakage.
+
 ### LinearSVC model
 
 `LinearSVCModel` inherits from:
@@ -206,7 +257,7 @@ BaseEstimator
 ClassifierMixin
 ```
 
-It wraps sklearn's `LinearSVC` while remaining reusable inside a standard sklearn `Pipeline`.
+It wraps sklearn's `LinearSVC` while remaining reusable inside an sklearn pipeline.
 
 ### Complete ML pipeline
 
@@ -219,26 +270,111 @@ Pipeline(
 )
 ```
 
-This guarantees that the same fitted TF-IDF vocabulary is reused for validation and test inference.
+This guarantees that the same fitted TF-IDF vocabulary is reused during validation and test inference.
 
 ---
 
-## Rule-based baseline
+## ML experiment configuration
 
-A first baseline is implemented using configurable keyword mappings for:
+The experiment is configured in `run_ml_pipeline.py`.
 
-- `nature_code`
-- `target_code`
+```python
+config = {
+    "method_name": "tfidf_linear_svc",
+    "validation_size": 0.2,
+    "random_state": 42,
+    "nature_model": {
+        "class_weight": None,
+    },
+    "target_model": {
+        "class_weight": "balanced",
+    },
+}
+```
 
-The baseline follows a deterministic strategy using cleaned product names and descriptions.
+The fixed `random_state` makes the validation split reproducible.
 
-This provides:
+---
 
-- an interpretable reference solution,
-- a simple benchmark,
-- a useful way to inspect discriminative vocabulary before moving to statistical learning.
+## Evaluation metrics
 
-The ML implementation is kept separate so both approaches remain reproducible.
+The project reports:
+
+- Accuracy
+- Balanced Accuracy
+- Macro F1
+- Weighted F1
+- Macro Precision
+- Macro Recall
+- Classification Report
+- Normalized Confusion Matrix
+
+Balanced Accuracy and Macro F1 are particularly important for `target_code` because of the class imbalance.
+
+---
+
+## Generated artifacts
+
+Each experiment creates a timestamped directory under:
+
+```text
+src/artifacts/
+```
+
+Example:
+
+```text
+2026-08-23_22-50-34/
+├── MOUNSEF_DEBACHE_prediction.csv
+├── tfidf_linear_svc_nature_confusion_matrix.png
+├── tfidf_linear_svc_nature_metrics.txt
+├── tfidf_linear_svc_results.pkl
+├── tfidf_linear_svc_target_confusion_matrix.png
+└── tfidf_linear_svc_target_metrics.txt
+```
+
+### Serialized experiment
+
+The complete ML experiment is serialized in:
+
+```text
+tfidf_linear_svc_results.pkl
+```
+
+It contains:
+
+```python
+{
+    "config",
+    "nature_pipeline",
+    "target_pipeline",
+    "train_data",
+    "validation_data",
+    "test_processed",
+    "nature_metrics",
+    "target_metrics",
+}
+```
+
+The trained pipelines are therefore preserved alongside configuration, predictions, validation data, and evaluation results.
+
+---
+
+## Submission file
+
+The final prediction file follows the required structure:
+
+```text
+productId
+nature_predict
+target_predict
+```
+
+The generated file is:
+
+```text
+MOUNSEF_DEBACHE_prediction.csv
+```
 
 ---
 
@@ -247,14 +383,27 @@ The ML implementation is kept separate so both approaches remain reproducible.
 ```text
 sephora_test/
 │
+├── .github/
+│   └── workflows/
+│       ├── ...
+│
 ├── data/
 │   ├── training_set.csv
 │   └── testing_set.csv
 │
+├── docs/
+│   ├── source/
+│   │   ├── index.rst
+│   │   ├── guide.rst
+│   │   ├── conf.py
+│   │   └── api/
+│   └── build/
+│
+├── logs/
+│
 ├── src/
 │   ├── artifacts/
-│   │   ├── 2026-08-23_18-23-19/
-│   │   └── 2026-08-23_22-50-34/
+│   │   └── <timestamped experiments>/
 │   │
 │   └── sephora_test/
 │       ├── apply_transformation/
@@ -277,6 +426,9 @@ sephora_test/
 │       │   ├── run_experiments.py
 │       │   └── run_ml_pipeline.py
 │       │
+│       ├── unitary_tests/
+│       │   └── ...
+│       │
 │       ├── utils/
 │       │   └── utils.py
 │       │
@@ -291,7 +443,12 @@ sephora_test/
 │       ├── package_execution.ipynb
 │       └── package_execution_svc.ipynb
 │
+├── .coverage
+├── .coveragerc
+├── .gitignore
 ├── .pre-commit-config.yaml
+├── .pre-commit-hooks.yaml
+├── .python-version
 ├── pyproject.toml
 ├── uv.lock
 └── README.md
@@ -305,39 +462,117 @@ The project uses **uv** for dependency and environment management.
 
 ### 1. Clone the repository
 
+Using SSH:
+
 ```bash
 git clone git@github.com:Mounsef27/sephora_test.git
 cd sephora_test
 ```
 
-### 2. Synchronize the environment
+Or HTTPS:
+
+```bash
+git clone https://github.com/Mounsef27/sephora_test.git
+cd sephora_test
+```
+
+### 2. Checkout the development branch
+
+```bash
+git switch dev
+```
+
+### 3. Synchronize the environment
 
 ```bash
 uv sync
 ```
 
-This installs the package dependencies declared in `pyproject.toml`.
+This installs the dependencies declared in:
 
-### 3. Development dependencies
+```text
+pyproject.toml
+uv.lock
+```
 
-The development environment includes:
+### 4. Verify Python
 
-- Jupyter / IPython kernel
-- Ruff
-- mypy
-- pre-commit
-- NLTK
-- dill
+```bash
+uv run python --version
+```
+
+Python requirement:
+
+```text
+Python >= 3.13
+```
 
 ---
 
 ## Quick start
 
-The easiest way to reproduce the experiments is through the notebooks.
+### Run tests
+
+```bash
+uv run pytest
+```
+
+### Run pre-commit
+
+```bash
+uv run pre-commit run --all-files
+```
+
+### Run Ruff
+
+```bash
+uv run ruff check .
+```
+
+### Run formatting
+
+```bash
+uv run ruff format .
+```
+
+### Run type checking
+
+```bash
+uv run mypy src
+```
+
+### Run Bandit
+
+```bash
+uv run bandit -r src
+```
+
+### Build documentation
+
+```bash
+uv run sphinx-build -E -W -b html docs/source docs/build/html
+```
+
+---
+
+## Notebooks
+
+The project includes notebooks for exploration and experiment execution.
+
+### Exploratory analysis
+
+```text
+_static/_notebooks/exploration.ipynb
+```
+
+Used for:
+
+- dataset exploration,
+- class distributions,
+- text analysis,
+- preprocessing exploration.
 
 ### Rule-based pipeline
-
-Open:
 
 ```text
 _static/_notebooks/package_execution.ipynb
@@ -345,143 +580,151 @@ _static/_notebooks/package_execution.ipynb
 
 ### TF-IDF + LinearSVC pipeline
 
-Open:
-
 ```text
 _static/_notebooks/package_execution_svc.ipynb
 ```
 
-The ML notebook performs:
+The core ML logic remains inside the Python package rather than being implemented only inside notebooks.
+
+---
+
+## Unit testing
+
+Automated tests are used to verify reusable components and preprocessing behavior.
+
+Run:
+
+```bash
+uv run pytest
+```
+
+or:
+
+```bash
+uv run pytest -v
+```
+
+Tests are located under:
 
 ```text
-Load data
-   ↓
-Text preprocessing
-   ↓
-Stratified train-validation assignment
-   ↓
-TF-IDF transformation
-   ↓
-LinearSVC training
-   ↓
-Validation evaluation
-   ↓
-Test inference
-   ↓
-Artifact generation
+src/sephora_test/unitary_tests/
 ```
 
 ---
 
-## ML experiment configuration
+## Code coverage
 
-The ML experiment is configured in `run_ml_pipeline.py`.
+Coverage can be generated with:
 
-```python
-config = {
-    "method_name": "tfidf_linear_svc",
-    "validation_size": 0.2,
-    "random_state": 42,
-    "nature_model": {
-        "class_weight": None,
-    },
-    "target_model": {
-        "class_weight": "balanced",
-    },
-}
+```bash
+uv run coverage run -m pytest
 ```
 
-The fixed `random_state` makes the validation split reproducible.
+Display the terminal report:
 
----
+```bash
+uv run coverage report -m
+```
 
-## Generated artifacts
+Generate the HTML report:
 
-Every experiment creates a timestamped directory under:
+```bash
+uv run coverage html
+```
+
+The generated report is available under:
 
 ```text
-src/artifacts/
+htmlcov/
 ```
-
-For the TF-IDF + LinearSVC experiment:
-
-```text
-2026-08-23_22-50-34/
-├── MOUNSEF_DEBACHE_prediction.csv
-├── tfidf_linear_svc_nature_confusion_matrix.png
-├── tfidf_linear_svc_nature_metrics.txt
-├── tfidf_linear_svc_results.pkl
-├── tfidf_linear_svc_target_confusion_matrix.png
-└── tfidf_linear_svc_target_metrics.txt
-```
-
-### Pickle artifact
-
-The complete experiment is serialized in:
-
-```text
-tfidf_linear_svc_results.pkl
-```
-
-It contains:
-
-```python
-{
-    "config",
-    "nature_pipeline",
-    "target_pipeline",
-    "train_data",
-    "validation_data",
-    "test_processed",
-    "nature_metrics",
-    "target_metrics",
-}
-```
-
-The trained sklearn pipelines are therefore preserved alongside the predictions, configuration, and evaluation results.
-
----
-
-## Submission file
-
-The final prediction file follows the required structure:
-
-```text
-productId
-nature_predict
-target_predict
-```
-
-and is generated as:
-
-```text
-MOUNSEF_DEBACHE_prediction.csv
-```
-
----
-
-## Evaluation metrics
-
-The project reports:
-
-- Accuracy
-- Balanced Accuracy
-- Macro F1
-- Weighted F1
-- Macro Precision
-- Macro Recall
-- Classification Report
-- Normalized Confusion Matrix
-
-Balanced Accuracy and Macro F1 are especially important for `target_code` because of the class imbalance.
 
 ---
 
 ## Code quality
 
-The repository uses automated checks through **pre-commit**.
+The project uses several complementary tools.
 
-Run all checks with:
+### Ruff
+
+Ruff is used for:
+
+- linting,
+- import ordering,
+- formatting,
+- common Python error detection.
+
+Run:
+
+```bash
+uv run ruff check .
+```
+
+Apply formatting:
+
+```bash
+uv run ruff format .
+```
+
+The project uses configuration defined in `pyproject.toml`.
+
+Example:
+
+```toml
+[tool.ruff]
+preview = true
+line-length = 80
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+```
+
+---
+
+## Static type checking
+
+The project uses **mypy** for static type analysis.
+
+Run:
+
+```bash
+uv run mypy src
+```
+
+Static typing helps detect potential inconsistencies before runtime.
+
+---
+
+## Security checks
+
+The project uses **Bandit** for Python security analysis.
+
+Run:
+
+```bash
+uv run bandit -r src
+```
+
+Bandit helps identify potentially unsafe patterns such as:
+
+- unsafe subprocess usage,
+- hardcoded secrets,
+- risky deserialization,
+- insecure temporary file usage,
+- other security-sensitive Python patterns.
+
+---
+
+## Pre-commit hooks
+
+The repository uses **pre-commit** to automatically run quality checks.
+
+Install hooks with:
+
+```bash
+uv run pre-commit install
+```
+
+Run all configured hooks:
 
 ```bash
 uv run pre-commit run --all-files
@@ -498,25 +741,117 @@ Configured checks include:
 ✓ trailing-whitespace cleanup
 ✓ Ruff linting
 ✓ Ruff formatting
-✓ mypy type checking
+✓ Bandit security checks
 ```
 
-Ruff is configured with:
+This helps detect issues before code is pushed to GitHub.
 
-```toml
-[tool.ruff]
-preview = true
-line-length = 80
+---
 
-[tool.ruff.lint]
-select = ["E", "F", "I", "B"]
+## Continuous Integration
+
+GitHub Actions workflows are stored under:
+
+```text
+.github/workflows/
 ```
+
+The CI pipeline automatically validates the project when changes are pushed.
+
+Conceptually:
+
+```text
+Developer
+    │
+    ▼
+git commit
+    │
+    ▼
+pre-commit
+    │
+    ▼
+git push
+    │
+    ▼
+GitHub Actions
+    │
+    ├── Environment setup
+    ├── Dependency installation
+    ├── Pre-commit checks
+    ├── Unit tests
+    └── Documentation build
+```
+
+The CI workflow uses `uv` to reproduce the development environment.
+
+Typical CI commands include:
+
+```bash
+uv python install
+uv sync --locked
+uv run pre-commit run --all-files
+uv run pytest --maxfail=1 --disable-warnings -q
+```
+
+Documentation can also be validated in CI using:
+
+```bash
+uv run sphinx-build -E -W -b html docs/source docs/build/html
+```
+
+Using `-W` turns documentation warnings into build errors.
+
+---
+
+## Dependency review
+
+The repository includes dependency review as an additional security mechanism.
+
+Dependency changes can introduce:
+
+- vulnerabilities,
+- incompatible versions,
+- unexpected transitive dependencies.
+
+Dependency review helps identify these issues before changes are merged.
+
+---
+
+## Documentation
+
+Technical documentation is built with **Sphinx**.
+
+Documentation sources are located under:
+
+```text
+docs/source/
+```
+
+Build the documentation with:
+
+```bash
+uv run sphinx-build -E -W -b html docs/source docs/build/html
+```
+
+Generated HTML documentation is available under:
+
+```text
+docs/build/html/
+```
+
+The documentation includes:
+
+- project overview,
+- quick start,
+- usage guide,
+- API documentation,
+- module references.
 
 ---
 
 ## Main dependencies
 
-| Package | Purpose |
+| Package / Tool | Purpose |
 |---|---|
 | pandas | Data manipulation |
 | NumPy | Numerical operations |
@@ -526,13 +861,15 @@ select = ["E", "F", "I", "B"]
 | NLTK | French stopwords and tokenization |
 | Matplotlib | Confusion-matrix visualization |
 | dill / pickle | Experiment serialization |
+| pytest | Unit testing |
+| coverage | Test coverage |
+| Ruff | Linting and formatting |
+| mypy | Static type checking |
+| Bandit | Security analysis |
+| pre-commit | Automated quality checks |
+| Sphinx | Technical documentation |
+| GitHub Actions | Continuous Integration |
 | uv | Environment and dependency management |
-
-Python requirement:
-
-```text
-Python >= 3.13
-```
 
 ---
 
@@ -543,28 +880,196 @@ The project emphasizes reproducibility through:
 - fixed random seed,
 - deterministic train-validation assignment,
 - sklearn pipelines,
+- TF-IDF fitted only on training data,
 - serialized fitted models,
 - timestamped experiment folders,
-- saved configuration,
+- saved configurations,
 - saved validation metrics,
 - saved confusion matrices,
-- versioned dependencies with `uv.lock`.
+- versioned dependencies with `uv.lock`,
+- automated tests,
+- CI validation.
+
+This makes it easier to trace:
+
+```text
+Code
+  +
+Dependencies
+  +
+Configuration
+  +
+Model
+  +
+Metrics
+  +
+Predictions
+```
+
+for each experiment.
+
+---
+
+## Engineering principles
+
+### Separation of concerns
+
+The project separates:
+
+```text
+Preprocessing
+     ≠
+Model
+     ≠
+Evaluation
+     ≠
+Experiment orchestration
+```
+
+### Reusable components
+
+Custom components follow the sklearn API when appropriate.
+
+### Data leakage prevention
+
+TF-IDF is fitted only on the training subset.
+
+### Experiment traceability
+
+Models, metrics, predictions, and configurations are saved as artifacts.
+
+### Automated quality control
+
+Testing, linting, formatting, security analysis, documentation checks, and CI are integrated into the development workflow.
+
+### Reproducible environments
+
+Dependencies are managed using:
+
+```text
+pyproject.toml
+uv.lock
+```
+
+### Documentation as code
+
+Documentation lives alongside the source code and is automatically buildable with Sphinx.
+
+---
+
+## Development workflow
+
+A typical development workflow is:
+
+```bash
+git switch dev
+git pull origin dev
+git switch -c feat/my-feature
+```
+
+Develop the feature and then run:
+
+```bash
+uv run pytest
+uv run pre-commit run --all-files
+```
+
+Commit:
+
+```bash
+git add .
+git commit -m "feat: add my feature"
+```
+
+Push:
+
+```bash
+git push origin feat/my-feature
+```
+
+The feature can then be integrated through a Pull Request.
 
 ---
 
 ## Potential improvements
 
-Several extensions could further improve performance:
+Several extensions could further improve the project.
 
-- Tune `LinearSVC` regularization parameter `C`.
+### Modeling
+
+- Tune the `LinearSVC` regularization parameter `C`.
 - Compare word-level and character-level TF-IDF.
-- Use independent TF-IDF representations for `productName` and `longDescription`.
+- Combine word-level and character-level n-grams.
+- Use independent representations for `productName` and `longDescription`.
 - Give higher weight to `productName`.
+- Compare Logistic Regression.
+- Compare Naive Bayes.
+- Explore transformer embeddings.
+- Fine-tune a French language model.
+
+### Validation
+
 - Add cross-validation.
-- Tune class weighting for `nature_code`.
-- Build a hybrid system combining high-confidence business rules with ML.
-- Analyze errors on the `COFFRET`, `CREM JOUR`, and `SERUM` classes.
-- Compare with logistic regression, Naive Bayes, or transformer-based embeddings.
+- Add repeated stratified validation.
+- Perform systematic error analysis.
+- Analyze errors for `COFFRET`, `CREM JOUR`, and `SERUM`.
+
+### Class imbalance
+
+- Tune class weights.
+- Analyze minority-class errors.
+- Compare alternative imbalance strategies.
+
+### MLOps
+
+- Add MLflow experiment tracking.
+- Add formal model versioning.
+- Containerize the project with Docker.
+- Add a FastAPI inference service.
+- Add deployment workflows.
+- Add data-drift monitoring.
+- Add model-performance monitoring.
+
+---
+
+## Current limitations
+
+### `COFFRET`
+
+The `COFFRET` category has lower recall than most other classes.
+
+### TF-IDF representation
+
+TF-IDF captures lexical importance but has limited semantic representation compared with modern transformer-based approaches.
+
+### Validation strategy
+
+The current holdout validation split is reproducible and efficient, but cross-validation could provide a more robust estimate of generalization performance.
+
+---
+
+## Development philosophy
+
+The project evolves from a simple Data Science experiment toward:
+
+```text
+Exploration
+     │
+     ▼
+Notebook
+     │
+     ▼
+Reusable Python package
+     │
+     ├── Tests
+     ├── Documentation
+     ├── Security checks
+     ├── Code quality
+     ├── CI
+     └── Reproducible experiments
+```
+
+The objective is to demonstrate not only Machine Learning performance, but also the software-engineering practices required to maintain a real-world ML project.
 
 ---
 
@@ -572,7 +1077,16 @@ Several extensions could further improve performance:
 
 **Mounsef Debache**
 
-Sephora Data Science Technical Test
-Machine Learning · NLP · Data Science
+Data Science · Machine Learning · Artificial Intelligence · NLP
 
 GitHub: [Mounsef27](https://github.com/Mounsef27)
+
+---
+
+<p align="center">
+  <strong>Sephora Data Science Technical Test</strong>
+</p>
+
+<p align="center">
+  Machine Learning · NLP · Software Engineering · MLOps
+</p>
