@@ -1,0 +1,18 @@
+version: 2
+
+updates:
+  # Check Python dependencies in pyproject.toml and uv.lock
+  - package-ecosystem: "uv"
+    directory: "/"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Check actions used in .github/workflows/
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
